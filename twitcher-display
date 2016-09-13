@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+# twitcher-display
+# ----------------
+# Display a list of online twitch streams
+
+# Usage:
+#     - create an environment variable TWITCH_CLIENT_ID with a valid Twitch.tv API client ID
+#     - create an environment variable TWITCH_TOKEN with a valid Twitch.tv OAUTH token
+#     - run ./twitcher-display
+
+# Requires:
+#     - a Twitch.tv API client ID
+#     - a Twitch.tv OAUTH token
+
+import os
+import requests
+
+try:
+    payload = {
+               'client_id':   os.environ['TWITCH_CLIENT_ID'],
+               'oauth_token': os.environ['TWITCH_TOKEN'],
+               'limit':       str(100),
+               'offset':      str(0),
+               'stream_type': 'live'
+              }
+    r = requests.get('https://api.twitch.tv/kraken/streams/followed', params=payload)
+
+    streams = []
+    columnPadding = [0, 0]
+    for stream in r.json()['streams']:
+        data = [str(stream['channel']['display_name']),
+                str(stream['game']),
+                str(stream['viewers'])]
+        if len(data[0]) > columnPadding[0]:
+            columnPadding[0] = len(data[0])
+        if len(data[1]) > columnPadding[1]:
+            columnPadding[1] = len(data[1])
+        streams.append(data)
+
+    for stream in streams:
+        print("  ".join([
+                         stream[0].ljust(columnPadding[0]),
+                         stream[1].ljust(columnPadding[1]),
+                         stream[2]
+                        ]))
+except:
+    pass
