@@ -6,23 +6,34 @@
 # http://docs.livestreamer.io/
 
 # Usage:
+#     - create an environment variable TWITCH_TOKEN with a valid Twitch.tv OAUTH token
 #     - ./twitcher-open [space-delimited streams]
 #     - echo "stream1\nstream2" | ./twitcher-open
 
 # Requires:
+#     - a Twitch.tv OAUTH token
 #     - Livestreamer command line utility
 
 import os
 import subprocess
 import sys
 
-prefix = "twitch.tv/"
-command = ["livestreamer", None, "best"]
-if len(sys.argv) > 1:
-    for stream in sys.argv[1:]:
-        command[1] = "".join([prefix, stream])
-        subprocess.Popen(command, stdout=open(os.devnull, "w"))
-else:
-    for stream in sys.stdin:
-        command[1] = "".join([prefix, stream.split()[0]])
-        subprocess.Popen(command, stdout=open(os.devnull, "w"))
+try:
+    prefix = "twitch.tv/"
+    command = [
+                "livestreamer",
+                "--twitch-oauth-token",
+                os.environ['TWITCH_TOKEN'],
+                None,
+                "best"
+              ]
+    if len(sys.argv) > 1:
+        for stream in sys.argv[1:]:
+            command[3] = "".join([prefix, stream.split()[0]])
+            subprocess.Popen(command, stdout=open(os.devnull, "w"))
+    else:
+        for stream in sys.stdin:
+            command[3] = "".join([prefix, stream.split()[0]])
+            subprocess.Popen(command, stdout=open(os.devnull, "w"))
+except:
+    pass
