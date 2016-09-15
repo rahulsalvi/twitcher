@@ -5,20 +5,17 @@
 # Display a list of online twitch streams
 
 # Usage:
-#     - create an environment variable TWITCH_CLIENT_ID with a valid Twitch.tv API client ID
 #     - create an environment variable TWITCH_TOKEN with a valid Twitch.tv OAUTH token
 #     - run ./twitcher-display
 
 # Requires:
-#     - a Twitch.tv API client ID
-#     - a Twitch.tv OAUTH token
+#     - a Twitch.tv OAUTH token with user_read scope
 
 import os
 import requests
 
 try:
     payload = {
-               'client_id':   os.environ['TWITCH_CLIENT_ID'],
                'oauth_token': os.environ['TWITCH_TOKEN'],
                'limit':       str(100),
                'offset':      str(0),
