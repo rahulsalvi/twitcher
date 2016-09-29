@@ -26,7 +26,7 @@ try:
     streams = []
     columnPadding = [0, 0]
     for stream in r.json()['streams']:
-        data = [str(stream['channel']['display_name']),
+        data = [str(stream['channel']['display_name'].replace(" ", "")),
                 str(stream['game']),
                 str(stream['viewers'])]
         if len(data[0]) > columnPadding[0]:
