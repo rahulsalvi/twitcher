@@ -14,19 +14,19 @@ Scripts to view and open Twitch.tv livestreams from the command line
 ### Installing
 
 1. Clone the repository:
-```
-git clone https://github.com/rahulsalvi/twitcher.git "${TWITCHER_DIR:-$HOME}/.twitcher"
-```
+    ```
+    git clone https://github.com/rahulsalvi/twitcher.git "${TWITCHER_DIR:-$HOME}/.twitcher"
+    ```
 
 2. Create an environment variable ```TWITCH_TOKEN``` with a Twitch.tv OAUTH token:
-```
-export TWITCH_TOKEN=<your token>
-```
+    ```
+    export TWITCH_TOKEN=<your token>
+    ```
 
 3. Add the following line to your .zshrc:
-```
-[ -f "${TWITCHER_DIR:-$HOME}/.twitcher/twitcher.zsh" ] && source "${TWITCHER_DIR:-$HOME}/.twitcher/twitcher.zsh"
-```
+    ```
+    [ -f "${TWITCHER_DIR:-$HOME}/.twitcher/twitcher.zsh" ] && source "${TWITCHER_DIR:-$HOME}/.twitcher/twitcher.zsh"
+    ```
 
 ## Usage
 
